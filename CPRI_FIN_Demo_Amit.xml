@@ -1,0 +1,339 @@
+<AssetData xmlns="http://namespaces.softwareag.com/webMethods/MFT_NS" version="10.7.0.0.405" timetamp="2024-01-12T15:20:41"><assetType xmlns="" name="scheduleAction"><asset><data><scheduledAction>
+    <active>false</active>
+    <advancedEventData>
+        <actionNameWhereParallelProcessingStarts>Find input files in Workday CFS location</actionNameWhereParallelProcessingStarts>
+        <maxNumberOfParallelProcessing>1</maxNumberOfParallelProcessing>
+        <processFilesInParallel>true</processFilesInParallel>
+    </advancedEventData>
+    <description>This Events find Emp Data files placed by Workday team in ESB CFS location and sends them to Concur ( Elevate RICEFW ID - CINT.060-003). We will decrypt file with ESB private key and encrypt with concur key and send. Schedule Mon to Fri at 9:30PM EST.</description>
+    <id>5e330o00hhk5h2ma00000bjc</id>
+    <name>CPRI_FIN_WDY_INT019_001_EmpData_CNR</name>
+    <properties>
+        <entry>
+            <key xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">maxNumberOfParallelProcessing</key>
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">1</value>
+        </entry>
+        <entry>
+            <key xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">processFilesInParallel</key>
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">true</value>
+        </entry>
+        <entry>
+            <key xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">actionNameWhereParallelProcessingStarts</key>
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">Find input files in Workday CFS location</value>
+        </entry>
+    </properties>
+    <schedule>
+        <daysOfWeek>2</daysOfWeek>
+        <daysOfWeek>3</daysOfWeek>
+        <daysOfWeek>4</daysOfWeek>
+        <daysOfWeek>5</daysOfWeek>
+        <daysOfWeek>6</daysOfWeek>
+        <hours>2</hours>
+        <minutes>30</minutes>
+        <noOverlap>true</noOverlap>
+        <scheduleFrequency>scheduleTypes4Weekly</scheduleFrequency>
+        <startDate>2023/12/14</startDate>
+        <startTime>00:00:00</startTime>
+        <timeZone>UTC</timeZone>
+        <type>complex</type>
+    </schedule>
+    <scheduleId>5e330o00hhk5h2ma00000bjc</scheduleId>
+    <findFileTask>
+        <actionId>5e330p00hhk5h3b1000005s0</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <taskName>Find input files in Workday CFS location</taskName>
+        <checkStabilityInterval>0</checkStabilityInterval>
+        <checkStabilityOnce>true</checkStabilityOnce>
+        <checkStabilityTimeout>0</checkStabilityTimeout>
+        <delayTillNoChange>false</delayTillNoChange>
+        <depth>1</depth>
+        <excludeChangingFiles>true</excludeChangingFiles>
+        <extractFileNameFromUrl>false</extractFileNameFromUrl>
+        <fileNameFilter>*.txt.pgp</fileNameFilter>
+        <fileUrl>/WDY/outbound/INT019/CFS/</fileUrl>
+        <filterPresent>true</filterPresent>
+        <findRetryInterval>5</findRetryInterval>
+        <findTimeOut>3</findTimeOut>
+        <ignoreFolders>true</ignoreFolders>
+        <interruptProcess>true</interruptProcess>
+        <lastModificationDays>0</lastModificationDays>
+        <lastModificationHours>0</lastModificationHours>
+        <lastModificationMinutes>0</lastModificationMinutes>
+        <lastModificationMode>OLDER</lastModificationMode>
+        <maxItemsLimit>0</maxItemsLimit>
+        <overridePartner>false</overridePartner>
+        <partnerId />
+        <proxyAlias />
+        <remoteFile>false</remoteFile>
+        <replaceServerVariable>true</replaceServerVariable>
+        <sortFiles>false</sortFiles>
+        <sslKeyPassword />
+        <sslKeystorePassword />
+        <sslKeystorePath />
+        <useActiveTransferHTTP>true</useActiveTransferHTTP>
+        <useCustomProxyEnabled>false</useCustomProxyEnabled>
+        <useProxyEnabled>true</useProxyEnabled>
+        <vfsReference>true</vfsReference>
+    </findFileTask>
+    <copyFileTask>
+        <actionId>5e330p00hi3o479l00000832</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Copy .pgp file to ESB Archive location</taskName>
+        <ascii>false</ascii>
+        <asciiConvert>none</asciiConvert>
+        <copyRetryInterval>5</copyRetryInterval>
+        <copyTimeOut>60</copyTimeOut>
+        <createDirectory>false</createDirectory>
+        <destinationUrl>/WDY/outbound/INT019/FS/EmpData/archive/</destinationUrl>
+        <failActionIfFileExists>false</failActionIfFileExists>
+        <httpRequestHeaders>
+            <item>Content-Type</item>
+            <item>text/plain</item>
+        </httpRequestHeaders>
+        <httpRequestMethod>POST</httpRequestMethod>
+        <overridePartner>false</overridePartner>
+        <partnerId />
+        <preserveFileDate>false</preserveFileDate>
+        <proxyAlias />
+        <remoteDestination>false</remoteDestination>
+        <resumeFromPointOfInterruption>1</resumeFromPointOfInterruption>
+        <retryFailedAttempts>3</retryFailedAttempts>
+        <retryWhenInterrupted>0</retryWhenInterrupted>
+        <simple>false</simple>
+        <siteCommandBeforeUpload />
+        <skipTransferIfFileExists>false</skipTransferIfFileExists>
+        <sslKeyPassword />
+        <sslKeystorePassword />
+        <sslKeystorePath />
+        <useActiveTransferHTTP>true</useActiveTransferHTTP>
+        <useCustomProxyEnabled>false</useCustomProxyEnabled>
+        <useProxyEnabled>true</useProxyEnabled>
+        <vfsReference>true</vfsReference>
+        <waitPeriod>0</waitPeriod>
+    </copyFileTask>
+    <moveFileTask>
+        <actionId>5e330p00hhk6bu31000005s8</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Move files to ESB work location</taskName>
+        <ascii>false</ascii>
+        <asciiConvert>none</asciiConvert>
+        <createDirectory>false</createDirectory>
+        <destinationUrl>/WDY/outbound/INT019/FS/EmpData/work/</destinationUrl>
+        <failActionIfFileExists>false</failActionIfFileExists>
+        <giveUpAfter>60</giveUpAfter>
+        <moveRetryInterval>5</moveRetryInterval>
+        <moveUnique>false</moveUnique>
+        <overridePartner>false</overridePartner>
+        <partnerId />
+        <preserveFileDate>false</preserveFileDate>
+        <proxyAlias />
+        <remoteDestination>false</remoteDestination>
+        <retryFail>0</retryFail>
+        <retryFailTimes>3</retryFailTimes>
+        <retryFromPointOfInterruption>1</retryFromPointOfInterruption>
+        <retryWhenInterrupted>0</retryWhenInterrupted>
+        <simple>false</simple>
+        <siteCommandBeforeUpload />
+        <skipTransferIfFileExists>false</skipTransferIfFileExists>
+        <useCustomProxyEnabled>false</useCustomProxyEnabled>
+        <useProxyEnabled>true</useProxyEnabled>
+        <vfsReference>true</vfsReference>
+        <wait>0</wait>
+    </moveFileTask>
+    <excludeTask>
+        <actionId>5e330p00hhk6gid5000005s9</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Exclude Action for Original file</taskName>
+    </excludeTask>
+    <findFileTask>
+        <actionId>5e330p00hhk6ii7g000005sa</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <taskName>Find files from ESB work</taskName>
+        <checkStabilityInterval>0</checkStabilityInterval>
+        <checkStabilityOnce>true</checkStabilityOnce>
+        <checkStabilityTimeout>0</checkStabilityTimeout>
+        <delayTillNoChange>false</delayTillNoChange>
+        <depth>1</depth>
+        <excludeChangingFiles>true</excludeChangingFiles>
+        <extractFileNameFromUrl>true</extractFileNameFromUrl>
+        <fileNameFilter>*.txt.pgp</fileNameFilter>
+        <fileUrl>/WDY/outbound/INT019/FS/EmpData/work/</fileUrl>
+        <filterPresent>true</filterPresent>
+        <findRetryInterval>5</findRetryInterval>
+        <findTimeOut>3</findTimeOut>
+        <ignoreFolders>true</ignoreFolders>
+        <interruptProcess>false</interruptProcess>
+        <lastModificationDays>0</lastModificationDays>
+        <lastModificationHours>0</lastModificationHours>
+        <lastModificationMinutes>0</lastModificationMinutes>
+        <lastModificationMode>OLDER</lastModificationMode>
+        <maxItemsLimit>0</maxItemsLimit>
+        <overridePartner>false</overridePartner>
+        <partnerId />
+        <proxyAlias />
+        <remoteFile>false</remoteFile>
+        <replaceServerVariable>true</replaceServerVariable>
+        <sortFiles>false</sortFiles>
+        <sslKeyPassword />
+        <sslKeystorePassword />
+        <sslKeystorePath />
+        <useActiveTransferHTTP>true</useActiveTransferHTTP>
+        <useCustomProxyEnabled>false</useCustomProxyEnabled>
+        <useProxyEnabled>true</useProxyEnabled>
+        <vfsReference>true</vfsReference>
+    </findFileTask>
+    <decryptFile>
+        <actionId>5e330p00hhk6qopt000005sd</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Decrypt with ESB Private key</taskName>
+        <asciiArmour>false</asciiArmour>
+        <deleteOriginal>true</deleteOriginal>
+        <deriveFileNameFromInput>false</deriveFileNameFromInput>
+        <keyFile>FILE:///apps/scope/.gnupg/CPRIWorkdayPvtKey.asc/</keyFile>
+        <password>gJ4iAPX2uPAGvRaeiBkqKA==</password>
+    </decryptFile>
+    <encryptFile>
+        <actionId>5e330p00hhk7152n000005se</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter>*.txt</sourceFilter>
+        <taskName>Encrypt with Concur Public Key</taskName>
+        <asciiArmour>false</asciiArmour>
+        <deleteOriginal>true</deleteOriginal>
+        <keyFile>FILE:///apps/scope/.gnupg/concursolutionsrotate.asc/</keyFile>
+        <withIntegrityCheck>false</withIntegrityCheck>
+    </encryptFile>
+    <moveFileTask>
+        <actionId>5e330p00hi6jfkjl000008jj</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter>*.txt.pgp</sourceFilter>
+        <taskName>Move to Concur SFTP</taskName>
+        <ascii>false</ascii>
+        <asciiConvert>none</asciiConvert>
+        <createDirectory>false</createDirectory>
+        <destinationUrl>/CNR/Inbound/INT019/SFTP/</destinationUrl>
+        <failActionIfFileExists>false</failActionIfFileExists>
+        <giveUpAfter>60</giveUpAfter>
+        <moveRetryInterval>5</moveRetryInterval>
+        <moveUnique>false</moveUnique>
+        <overridePartner>false</overridePartner>
+        <partnerId />
+        <preserveFileDate>false</preserveFileDate>
+        <proxyAlias />
+        <remoteDestination>false</remoteDestination>
+        <retryFail>0</retryFail>
+        <retryFailTimes>3</retryFailTimes>
+        <retryFromPointOfInterruption>1</retryFromPointOfInterruption>
+        <retryWhenInterrupted>0</retryWhenInterrupted>
+        <simple>false</simple>
+        <siteCommandBeforeUpload />
+        <skipTransferIfFileExists>false</skipTransferIfFileExists>
+        <useCustomProxyEnabled>false</useCustomProxyEnabled>
+        <useProxyEnabled>true</useProxyEnabled>
+        <vfsReference>true</vfsReference>
+        <wait>0</wait>
+    </moveFileTask>
+    <isSvcInvocationFileTask>
+        <actionId>5e330p00hhk7kvpm000005sv</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>false</errorTask>
+        <executeErrorTask>true</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Execute Integration Server Service CIF Success</taskName>
+        <includeFileContent>false</includeFileContent>
+        <includeFilePath>false</includeFilePath>
+        <inputDataForSvc>&lt;![CDATA[
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;IDataXMLCoder version="1.0"&gt;
+  &lt;record javaclass="com.wm.data.ISMemDataImpl"&gt;
+    &lt;value name="username"&gt;%user_name%&lt;/value&gt;
+    &lt;value name="filename"&gt;::%event_execution_id%_%the_file_name%::%the_file_name%&lt;/value&gt;
+    &lt;value name="errorInformation"&gt;%task_error%&lt;/value&gt;
+    &lt;value name="filepath"&gt;%the_file_path%&lt;/value&gt;
+    &lt;value name="cifProcessID"&gt;FIN_INT019&lt;/value&gt;
+    &lt;value name="cifDestinationSystem"&gt;CNR&lt;/value&gt;
+    &lt;value name="cifSourceSystem"&gt;WDY&lt;/value&gt;
+    &lt;value name="interfaceId"&gt;FIN_INT019_001_MFT&lt;/value&gt;
+    &lt;value name="interfaceModule"&gt;CPRI_FIN_WDY_INT019_001_EmpData_CNR&lt;/value&gt;
+    &lt;value name="level"&gt;1.0&lt;/value&gt;
+  &lt;/record&gt;
+&lt;/IDataXMLCoder&gt;
+
+]]&gt;</inputDataForSvc>
+        <outputMap />
+        <runAlways>false</runAlways>
+        <serviceName>CapriCIFCommon.utils.mftCIFLog:sendDIMMessage</serviceName>
+    </isSvcInvocationFileTask>
+    <isSvcInvocationFileTask>
+        <actionId>5e330p00hi949b9g000008ph</actionId>
+        <classVersionID>4</classVersionID>
+        <disabled>false</disabled>
+        <errorTask>true</errorTask>
+        <executeErrorTask>false</executeErrorTask>
+        <multiThreaded>false</multiThreaded>
+        <sourceFilter />
+        <taskName>Execute CIF Error Service</taskName>
+        <includeFileContent>false</includeFileContent>
+        <includeFilePath>false</includeFilePath>
+        <inputDataForSvc>&lt;![CDATA[
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;IDataXMLCoder version="1.0"&gt;
+  &lt;record javaclass="com.wm.data.ISMemDataImpl"&gt;
+    &lt;value name="username"&gt;%user_name%&lt;/value&gt;
+    &lt;value name="filename"&gt;::%event_execution_id%_%the_file_name%::%the_file_name%&lt;/value&gt;
+    &lt;value name="errorInformation"&gt;%task_error%&lt;/value&gt;
+    &lt;value name="filepath"&gt;%the_file_path%&lt;/value&gt;
+    &lt;value name="cifProcessID"&gt;FIN_INT019&lt;/value&gt;
+    &lt;value name="cifDestinationSystem"&gt;CNR&lt;/value&gt;
+    &lt;value name="cifSourceSystem"&gt;WDY&lt;/value&gt;
+    &lt;value name="cifInterfaceID"&gt;FIN_INT019_001_MFT&lt;/value&gt;
+    &lt;value name="cifInterfaceModule"&gt;CPRI_FIN_WDY_INT019_001_EmpData_CNR&lt;/value&gt;
+    &lt;value name="level"&gt;1.0&lt;/value&gt;
+  &lt;/record&gt;
+&lt;/IDataXMLCoder&gt;
+
+]]&gt;</inputDataForSvc>
+        <outputMap />
+        <runAlways>false</runAlways>
+        <serviceName>CPRIElevateUtility.mft:handleMFTError</serviceName>
+    </isSvcInvocationFileTask>
+</scheduledAction></data></asset></assetType></AssetData>
